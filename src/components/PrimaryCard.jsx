@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import propTypes from 'eslint-plugin-react/lib/rules/prop-types';
 
 const StyledPrimaryCard = styled.section`
   &:nth-child(1) {
@@ -26,10 +25,24 @@ const StyledPrimaryCard = styled.section`
   overflow-x: hidden;
   overflow-y: auto;
   text-align: justify;
+  & p {
+    font-size: .90rem;
+    padding: 0;
+  }
   & > small {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 1rem;
+    backdrop-filter: blur(1px);
+    z-index: 2
+    border-bottom: 1px solid rgba(255, 255, 255, 0.4);
+    font-weight: 100;
+    background: rgba(255, 255, 255, 0.6);
+    position: sticky;
+    top: 0;
+    color: #000;
     font-size: 1.6rem;
     padding: 0.5rem;
-    text-decoration: underline;
   }
   & div {
     padding: 1rem;
@@ -43,6 +56,10 @@ const StyledPrimaryCard = styled.section`
     & > img {
       height: 100%;
       width: 100%;
+    }
+    & p {
+      padding: 0;
+      margin: .5rem;
     }
   }
 

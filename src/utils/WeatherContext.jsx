@@ -10,6 +10,9 @@ const WeatherContext = createContext({
   searchTerm: '',
   getRandomCocktail: () => {},
   getEvents: () => {},
+  scrollRef: '',
+  scroll: () => {},
+  setHours: () => {},
 });
 
 export default WeatherContext;

@@ -1,5 +1,5 @@
 /* eslint-disable react/jsx-no-constructed-context-values */
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import SearchField from './Input';
 import Button from './Button';
@@ -37,6 +37,7 @@ const PrimaryCardWrapper = styled.div`
 `;
 
 function WeatherComponent() {
+  const scrollRef = useRef();
   const [isClicked, setIsClicked] = useState(false);
   const [currentCard, setCurrentCard] = useState([]);
   const [searchTerm, setSearchTerm] = useState('Carson, CA');
@@ -56,8 +57,7 @@ function WeatherComponent() {
           postion.coords.longitude,
         );
       });
-      // setSearchTerm(coords[0], coords[1]);
-      console.log(coords);
+      // setSearchTerm(coords[0], coords[1])
       return coords;
     };
     getUserLocation();
@@ -104,23 +104,32 @@ function WeatherComponent() {
     'Saturday',
   ];
 
-  // Convert unix time stamp from weather data into the corresponding day of the week
+  // Convert unix timestamp from weather data into the corresponding day of the week
   const setDaysOfTheWeek = (currentTimeStamp) => {
     const date = new Date(currentTimeStamp * 1000);
     const day = date.getDay();
-    const formattedTime = `${daysOfTheWeek[day]}`;
-    return formattedTime;
+    const formattedDay = `${daysOfTheWeek[day]}`;
+    return formattedDay;
+  };
+
+  // Convert unix timestamp from weather data to a readable timestamp
+  const setHours = (currentTimestamp) => {
+    const date = new Date(currentTimestamp * 1000);
+    const hour = date.getHours();
+    const minutes = date.getMinutes();
+    const formatedHours = `${hour}:${minutes}`;
+    return formatedHours;
   };
 
   // Pull events relevent to the value of current city
   const getEvents = async (str) => {
     const apiKey = '4YzxxzHX4AtM9B6gwUEvKCUpFKuGsf41';
     const res = await fetch(
-      `https://app.ticketmaster.com/discovery/v2/events.json?size=1&apikey=${apiKey}&city=${str}`,
+      `https://app.ticketmaster.com/discovery/v2/events.json?size=5&apikey=${apiKey}&city=${str}`,
     );
     const eventDataRes = await res.json();
     // eslint-disable-next-line no-underscore-dangle
-    setEventData(eventDataRes._embedded);
+    setEventData(eventDataRes._embedded.events);
   };
 
   // Get the random cocktail recipe
@@ -130,6 +139,11 @@ function WeatherComponent() {
     );
     const recipe = await res.json();
     setRandomDrink(recipe.drinks[0]);
+  };
+
+  // Click to scroll to large information card
+  const scroll = () => {
+    scrollRef.current.scrollIntoView({ behavior: 'smooth' });
   };
 
   // Re-run search query upon submit with updated search term
@@ -179,6 +193,8 @@ function WeatherComponent() {
               searchTerm,
               getRandomCocktail,
               getEvents,
+              scrollRef,
+              scroll,
             }}
           >
             {weatherData.length ? (
@@ -188,10 +204,13 @@ function WeatherComponent() {
             )}
           </WeatherContext.Provider>
         </CardWrapper>
-
-        <p className="header">
-          Current forecast for {currentCity[0]}, {currentCity[1]}
-        </p>
+        {currentCity.length ? (
+          <p className="header">
+            Current forecast for {currentCity[0]}, {currentCity[1]}
+          </p>
+        ) : (
+          ''
+        )}
       </Wrapper>
       {isClicked === true && (
         <PrimaryCardWrapper>
@@ -201,10 +220,12 @@ function WeatherComponent() {
               setDaysOfTheWeek,
               randomDrink,
               eventData,
+              scrollRef,
+              setHours,
             }}
           >
             {eventData && <EventCard />}
-            <LargeWeatherCard />
+            <LargeWeatherCard ref={scrollRef} />
             <CocktailCard />
           </WeatherContext.Provider>
         </PrimaryCardWrapper>

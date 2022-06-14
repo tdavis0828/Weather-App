@@ -3,7 +3,7 @@ import { createGlobalStyle } from 'styled-components';
 // eslint-disable-next-line import/no-named-as-default
 import WeatherComponent from './components/WeatherComponent';
 
-const GlobalStyle = createGlobalStyle`
+export const GlobalStyle = createGlobalStyle`
   body {
     font-family: 'Nunito', sans-serif;
     padding: 0;

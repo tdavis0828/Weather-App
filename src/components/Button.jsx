@@ -18,7 +18,6 @@ const StyledButton = styled.button`
 `;
 
 function Button({ type, children, onClick }) {
-  // eslint-disable-next-line react/button-has-type
   return (
     <StyledButton type={type} onClick={onClick}>
       {children}

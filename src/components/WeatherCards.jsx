@@ -13,6 +13,7 @@ function WeatherCards() {
     setCurrentCard,
     currentCity,
     getEvents,
+    scroll,
   } = useContext(WeatherContext);
   const baseUrl = 'https://openweathermap.org/img/wn/';
   const urlExt = '@2x.png';
@@ -34,6 +35,7 @@ function WeatherCards() {
           setIsClicked(true);
           getRandomCocktail();
           getEvents(currentCity[0]);
+          scroll();
         }}
       >
         See more

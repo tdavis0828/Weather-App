@@ -24,7 +24,9 @@ const Input = styled.input`
 `;
 
 function SearchField({ onChange, value }) {
-  return <Input placeholder={value} onChange={onChange} />;
+  return (
+    <Input placeholder={value} value={value} onChange={onChange} />
+  );
 }
 
 export default SearchField;
