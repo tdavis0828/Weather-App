@@ -1,5 +1,6 @@
 /* eslint-disable no-underscore-dangle */
 import React, { useContext } from 'react';
+import { nanoid } from 'nanoid';
 import PrimaryCard from './PrimaryCard';
 import WeatherContext from '../utils/WeatherContext';
 
@@ -9,7 +10,7 @@ function EventCard() {
     <PrimaryCard>
       <small>Events Near You</small>
       {eventData.map((event) => (
-        <>
+        <div key={nanoid()}>
           <p>{event.name}</p>
           <img
             width="350px"
@@ -32,7 +33,7 @@ function EventCard() {
               Get Tickets
             </a>
           </div>
-        </>
+        </div>
       ))}
     </PrimaryCard>
   );

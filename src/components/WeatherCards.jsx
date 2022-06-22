@@ -35,7 +35,9 @@ function WeatherCards() {
           setIsClicked(true);
           getRandomCocktail();
           getEvents(currentCity[0]);
-          scroll();
+          setTimeout(() => {
+            scroll();
+          }, 0);
         }}
       >
         See more

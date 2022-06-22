@@ -4,8 +4,6 @@ import WeatherContext from '../utils/WeatherContext';
 import PrimaryCard from './PrimaryCard';
 import sunrise from '../sunrise.png';
 import sunset from '../sunset.png';
-import moonset from '../moonset.png';
-import moonrise from '../moonrise.png';
 
 const BottomRight = styled.div`
   position: absolute;
@@ -61,8 +59,9 @@ function LargeWeatherCard() {
   const urlExt = '@2x.png';
   return (
     <PrimaryCard>
-      <p ref={scrollRef}>{setDaysOfTheWeek(currentCard.dt)}</p>
+      <p>{setDaysOfTheWeek(currentCard.dt)}</p>
       <img
+        ref={scrollRef}
         src={baseUrl + currentCard.weather[0].icon + urlExt}
         alt={currentCard.weather[0].icon}
       />
@@ -71,30 +70,22 @@ function LargeWeatherCard() {
       <p>Low: {currentCard.temp.min} ° F</p>
       <TopLeft>
         {currentCard.weather[0].description.toUpperCase()}
-        <div>
-          <img src={moonrise} alt="moonrise" />
-          <p>Moonrise: {setHours(currentCard.moonrise)} A.M.</p>
-        </div>
       </TopLeft>
       <TopRight>
         <p>Humidity: {currentCard.humidity}%</p>
-        <div>
-          <img src={moonset} alt="moonset" />
-          <p>Moonset: {setHours(currentCard.moonset)} P.M.</p>
-        </div>
       </TopRight>
       <BottomLeft>
         <p>{currentCard.wind_speed} mph</p>
         <div>
           <img src={sunrise} alt="sun rise" />
-          <p>Sunrise: {setHours(currentCard.sunrise)} A.M.</p>
+          <p>{setHours(currentCard.sunrise)} A.M.</p>
         </div>
       </BottomLeft>
       <BottomRight>
         <p>UV Index {currentCard.uvi}</p>
         <div>
           <img src={sunset} alt="sunset" />
-          <p>Sunset: {setHours(currentCard.sunset)} P.M.</p>
+          <p>{setHours(currentCard.sunset)} P.M.</p>
         </div>
       </BottomRight>
     </PrimaryCard>

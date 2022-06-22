@@ -26,7 +26,7 @@ const StyledPrimaryCard = styled.section`
   overflow-y: auto;
   text-align: justify;
   & p {
-    font-size: .90rem;
+    font-size: 1.2rem;
     padding: 0;
   }
   & > small {

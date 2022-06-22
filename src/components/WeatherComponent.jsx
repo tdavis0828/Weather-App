@@ -46,23 +46,6 @@ function WeatherComponent() {
   const [randomDrink, setRandomDrink] = useState([]);
   const [currentCity, setCurrentCity] = useState([]);
 
-  // Get users current location
-  useEffect(() => {
-    const getUserLocation = () => {
-      const coords = [];
-      // eslint-disable-next-line no-undef
-      navigator.geolocation.getCurrentPosition((postion) => {
-        coords.push(
-          postion.coords.latitude,
-          postion.coords.longitude,
-        );
-      });
-      // setSearchTerm(coords[0], coords[1])
-      return coords;
-    };
-    getUserLocation();
-  }, []);
-
   // Takes the search term and returns the corresponding latitude and longitude
   const getWeatherData = async (str) => {
     // Get latitude and longitude
@@ -115,10 +98,9 @@ function WeatherComponent() {
   // Convert unix timestamp from weather data to a readable timestamp
   const setHours = (currentTimestamp) => {
     const date = new Date(currentTimestamp * 1000);
-    const hour = date.getHours();
-    const minutes = date.getMinutes();
-    const formatedHours = `${hour}:${minutes}`;
-    return formatedHours;
+    const time = date.toLocaleTimeString();
+    const formattedTime = time.slice(0, -6);
+    return formattedTime;
   };
 
   // Pull events relevent to the value of current city
@@ -156,10 +138,6 @@ function WeatherComponent() {
   };
 
   // Get data for initial render
-  useEffect(() => {
-    getEvents(currentCity[0]);
-  }, [currentCity]);
-
   useEffect(() => {
     getWeatherData(searchTerm);
     // eslint-disable-next-line react-hooks/exhaustive-deps

@@ -32,6 +32,6 @@ function SearchField({ onChange, value }) {
 export default SearchField;
 
 SearchField.propTypes = {
-  onChange: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
   value: PropTypes.string.isRequired,
 };

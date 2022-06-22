@@ -1,3 +1,4 @@
+/* eslint-disable react/forbid-prop-types */
 import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
@@ -20,7 +21,7 @@ function Navbar({ children }) {
 }
 
 Navbar.propTypes = {
-  children: PropTypes.node.isRequired,
+  children: PropTypes.array.isRequired,
 };
 
 export default Navbar;
